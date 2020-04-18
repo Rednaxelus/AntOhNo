@@ -5,6 +5,8 @@ const MAX_SPEED = 500
 const ACCELERATION = 5000
 var motion = Vector2.ZERO
 
+const ROTATION_CORRECTION = deg2rad(90)
+
 func _physics_process(delta):
 	var axis = get_input_axis()
 	if(axis == Vector2.ZERO):
@@ -28,6 +30,7 @@ func apply_friction(amount):
 func apply_movement(acceleration):
 	motion += acceleration
 	motion = motion.clamped(MAX_SPEED)
+	rotation = motion.angle() - ROTATION_CORRECTION
 
 
 
