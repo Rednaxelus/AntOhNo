@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 
 const MAX_SPEED = 500
-const ACCELERATION = 5000
+const ACCELERATION = 6000
 var motion = Vector2.ZERO
 
 const ROTATION_CORRECTION = deg2rad(90)
