@@ -11,7 +11,10 @@ func _physics_process(delta):
 	var axis = get_input_axis()
 	if(axis == Vector2.ZERO):
 		apply_friction(ACCELERATION * delta)
+		$Animation.playing = false
+		$Animation.frame = 0
 	else:
+		$Animation.playing = true
 		apply_movement(axis * ACCELERATION * delta)
 	motion = move_and_slide(motion)
 	
