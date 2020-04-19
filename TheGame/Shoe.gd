@@ -1,42 +1,38 @@
 extends StaticBody2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+signal ant_squashed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$ShoeSprite.visible = false
 	$Area2D/Detection.disabled = true
 	$Collision.disabled = true
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var val = $DownTimer.wait_time - $DownTimer.time_left
-	$Shadow.set_scale(Vector2(val,val))
-
-
-
-func _on_Timer_timeout():
-	$ShoeSprite.visible = true
-	check_collision()
-	$Collision.disabled = false
-
+	var tween = get_node("Tween")
+	$Shadow.set_scale(Vector2(0,0))
+	tween.interpolate_property($Shadow, "scale",Vector2(0, 0), Vector2(1, 1), $DownTimer.wait_time)
+	tween.start()
+	
 func check_collision():
 	$Area2D/Detection.disabled = false
 
+func _on_Timer_timeout():
+	$SoundFX.play()
+	$ShoeSprite.visible = true
+	check_collision()
+	$Collision.disabled = false
+	$WaitTimer.start()
+
 func _on_WaitTimer_timeout():
-	pass # Replace with function body.
-
-
-func _on_WaitTimer2_timeout():
-	pass # Replace with function body.
-
+	$UpTimer.start()
+	$Collision.disabled = true
+	var tween = get_node("TweenUP")
+	tween.interpolate_property(self, "modulate", Color(1, 1, 1, 1), Color(1, 1, 1, 0), $UpTimer.wait_time)
+	tween.start()
 
 func _on_Area2D_body_entered(body):
 	if(body.get_name() == "Ant"):
-		print(body.get_name())
+		emit_signal("ant_squashed")
+
+func _on_UpTimer_timeout():
+	queue_free()

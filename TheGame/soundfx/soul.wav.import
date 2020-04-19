@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/soul.wav-c48c18cbc54d5003224dccbf43183f04.sample"
+
+[deps]
+
+source_file="res://soundfx/soul.wav"
+dest_files=[ "res://.import/soul.wav-c48c18cbc54d5003224dccbf43183f04.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

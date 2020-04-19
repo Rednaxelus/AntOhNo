@@ -1,22 +1,30 @@
 extends KinematicBody2D
 
-
 const MAX_SPEED = 500
 const ACCELERATION = 6000
 var motion = Vector2.ZERO
 
 const ROTATION_CORRECTION = deg2rad(90)
 
+var dead = false
+
+func die():
+	dead = true
+	$Animation.playing = false
+	$Animation.frame = 4
+	$SoundFX.play()
+
 func _physics_process(delta):
-	var axis = get_input_axis()
-	if(axis == Vector2.ZERO):
-		apply_friction(ACCELERATION * delta)
-		$Animation.playing = false
-		$Animation.frame = 0
-	else:
-		$Animation.playing = true
-		apply_movement(axis * ACCELERATION * delta)
-	motion = move_and_slide(motion)
+	if not dead:
+		var axis = get_input_axis()
+		if(axis == Vector2.ZERO):
+			apply_friction(ACCELERATION * delta)
+			$Animation.playing = false
+			$Animation.frame = 0
+		else:
+			$Animation.playing = true
+			apply_movement(axis * ACCELERATION * delta)
+		motion = move_and_slide(motion)
 	
 func get_input_axis():
 	var axis = Vector2.ZERO

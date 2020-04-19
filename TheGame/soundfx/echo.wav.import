@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/echo.wav-b59bf7023f7ff1d653357272a2fe6158.sample"
+
+[deps]
+
+source_file="res://soundfx/echo.wav"
+dest_files=[ "res://.import/echo.wav-b59bf7023f7ff1d653357272a2fe6158.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

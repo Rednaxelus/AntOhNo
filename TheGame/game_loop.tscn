@@ -1,10 +1,28 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Ant.tscn" type="PackedScene" id=1]
 [ext_resource path="res://WindowBorder.gd" type="Script" id=2]
 [ext_resource path="res://ShoeSpawner.gd" type="Script" id=3]
+[ext_resource path="res://game_loop.gd" type="Script" id=4]
+[ext_resource path="res://soundfx/start.wav" type="AudioStream" id=5]
+[ext_resource path="res://fonts/Chewy-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://fonts/my_font.tres" type="DynamicFont" id=7]
+[ext_resource path="res://Sprites/signature.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+outline_size = 4
+outline_color = Color( 0.0705882, 0.054902, 0, 1 )
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 100
+outline_size = 4
+outline_color = Color( 0.0705882, 0.054902, 0, 1 )
+font_data = ExtResource( 6 )
 
 [node name="World" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="Ant" parent="." instance=ExtResource( 1 )]
 
@@ -15,6 +33,7 @@ script = ExtResource( 2 )
 script = ExtResource( 3 )
 
 [node name="Timer" type="Timer" parent="ShoeSpawner"]
+wait_time = 0.3
 autostart = true
 
 [node name="Background" type="Node2D" parent="."]
@@ -27,4 +46,69 @@ color = Color( 0.886275, 0.705882, 0.427451, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SoundFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="GUI" type="Node2D" parent="."]
+z_index = 10
+
+[node name="Score" type="Label" parent="GUI"]
+margin_left = 463.959
+margin_top = -7.15988
+margin_right = 590.959
+margin_bottom = 121.84
+custom_fonts/font = ExtResource( 7 )
+text = "123"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOverGUI" type="Control" parent="GUI"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Restart" type="Label" parent="GUI/GameOverGUI"]
+margin_left = -27.2076
+margin_top = 236.276
+margin_right = 1079.79
+margin_bottom = 476.276
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.827451, 0.741176, 0.741176, 1 )
+text = "Hit \"R\" or \"Space\" on the Keyboard
+or any Button on the Jopad
+ to restart"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighscoreText" type="Label" parent="GUI/GameOverGUI"]
+margin_left = 20.0475
+margin_top = 94.5103
+margin_right = 425.047
+margin_bottom = 223.51
+custom_fonts/font = SubResource( 2 )
+text = "Highscore:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighscoreValue" type="Label" parent="GUI/GameOverGUI"]
+margin_left = 462.527
+margin_top = 97.3742
+margin_right = 867.527
+margin_bottom = 226.374
+custom_fonts/font = SubResource( 2 )
+text = "123"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="GUI/GameOverGUI"]
+position = Vector2( 620.044, 526.966 )
+texture = ExtResource( 8 )
 [connection signal="timeout" from="ShoeSpawner/Timer" to="ShoeSpawner" method="_on_Timer_timeout"]
